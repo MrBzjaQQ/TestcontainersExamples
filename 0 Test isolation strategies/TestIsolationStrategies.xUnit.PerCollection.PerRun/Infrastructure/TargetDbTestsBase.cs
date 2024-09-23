@@ -1,18 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace TestIsolationStrategies.NUnit.PerRun.Infrastructure;
-public abstract class TestFixtureBase
-{
-    [SetUp]
-    public virtual async Task SetUp()
-    {
-        // TODO
-    }
+namespace TestIsolationStrategies.xUnit.PerCollection.Infrastructure;
 
-    [TearDown]
-    public async Task TearDown()
+[Collection(nameof(DatabaseCollection))]
+public abstract class TargetDbTestsBase: IAsyncLifetime
+{
+    protected readonly string _connectionString;
+
+    protected TargetDbTestsBase(TargetDbFixture fixture)
     {
-        await ProceedWithContextAsync(ClearDatabase);
+        _connectionString = fixture.ConnectionString;
     }
 
     protected async Task<T> ProceedWithContextAsync<T>(Func<UsersDbContext, Task<T>> action)
@@ -27,14 +24,24 @@ public abstract class TestFixtureBase
 
     protected async Task ProceedWithContextAsync(Func<UsersDbContext, Task> action)
     {
-        using var context = TargetEnvironment.CreateDbContext(TestModule.Current.GetDbConnectionString());
+        using var context = TargetEnvironment.CreateDbContext(_connectionString);
         await action.Invoke(context);
     }
 
     protected void ProceedWithContext(Action<UsersDbContext> action)
     {
-        using var context = TargetEnvironment.CreateDbContext(TestModule.Current.GetDbConnectionString());
+        using var context = TargetEnvironment.CreateDbContext(_connectionString);
         action.Invoke(context);
+    }
+
+    public Task InitializeAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public async Task DisposeAsync()
+    {
+        await ProceedWithContextAsync(ClearDatabase);
     }
 
     private async Task ClearDatabase(UsersDbContext context)

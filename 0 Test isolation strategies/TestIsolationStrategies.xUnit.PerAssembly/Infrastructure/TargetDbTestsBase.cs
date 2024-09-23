@@ -1,18 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Xunit.Extensions.AssemblyFixture;
 
-namespace TestIsolationStrategies.NUnit.PerRun.Infrastructure;
-public abstract class TestFixtureBase
+// [assembly: AssemblyFixture(typeof(TargetDbFixture))] - Will be released with xUnit 3.0
+// according to https://xunit.net/docs/shared-context#assembly-fixture
+
+[assembly: TestFramework(AssemblyFixtureFramework.TypeName, AssemblyFixtureFramework.AssemblyName)]
+namespace TestIsolationStrategies.xUnit.PerAssembly.Infrastructure;
+
+public abstract class TargetDbTestsBase: IAsyncLifetime, IAssemblyFixture<TargetDbFixture>
 {
-    [SetUp]
-    public virtual async Task SetUp()
-    {
-        // TODO
-    }
+    protected readonly string _connectionString;
 
-    [TearDown]
-    public async Task TearDown()
+    protected TargetDbTestsBase(TargetDbFixture fixture)
     {
-        await ProceedWithContextAsync(ClearDatabase);
+        _connectionString = fixture.ConnectionString;
     }
 
     protected async Task<T> ProceedWithContextAsync<T>(Func<UsersDbContext, Task<T>> action)
@@ -27,14 +28,24 @@ public abstract class TestFixtureBase
 
     protected async Task ProceedWithContextAsync(Func<UsersDbContext, Task> action)
     {
-        using var context = TargetEnvironment.CreateDbContext(TestModule.Current.GetDbConnectionString());
+        using var context = TargetEnvironment.CreateDbContext(_connectionString);
         await action.Invoke(context);
     }
 
     protected void ProceedWithContext(Action<UsersDbContext> action)
     {
-        using var context = TargetEnvironment.CreateDbContext(TestModule.Current.GetDbConnectionString());
+        using var context = TargetEnvironment.CreateDbContext(_connectionString);
         action.Invoke(context);
+    }
+
+    public Task InitializeAsync()
+    {
+        return Task.CompletedTask;
+    }
+
+    public async Task DisposeAsync()
+    {
+        await ProceedWithContextAsync(ClearDatabase);
     }
 
     private async Task ClearDatabase(UsersDbContext context)
