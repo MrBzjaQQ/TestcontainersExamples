@@ -5,7 +5,7 @@ VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIsolationStrategies", "TestIsolationStrategies.csproj", "{5CBD8466-AAB4-4727-B7D5-36F99787550A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIsolationStrategies.NUnit.PerTest", "..\TestIsolationStrategies.PerTest\TestIsolationStrategies.NUnit.PerTest.csproj", "{133957DD-1C84-4BB5-BAB5-695863C87627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIsolationStrategies.NUnit.PerTest", "..\TestIsolationStrategies.NUnit.PerTest\TestIsolationStrategies.NUnit.PerTest.csproj", "{133957DD-1C84-4BB5-BAB5-695863C87627}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestIsolationStrategies.NUnit.PerClass", "..\TestIsolationStrategies.NUnit.PerClass\TestIsolationStrategies.NUnit.PerClass.csproj", "{863C1E0A-51D7-4011-A2F2-65C365DEBA6C}"
 EndProject
