@@ -1,6 +1,6 @@
 ﻿using SeleniumExample.Contract;
 
-namespace SeleniumExample.Users.Dtos;
+namespace SeleniumExample.Employees.Dtos;
 
 public class CreateEmployeeResponse: ICreateEmployeeResponse
 {

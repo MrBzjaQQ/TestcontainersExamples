@@ -1,4 +1,4 @@
-﻿namespace SeleniumExample.Users.Entities;
+﻿namespace SeleniumExample.Employees.Entities;
 
 public sealed record Employee(string Phone, string UserName, string Email, string Position)
 {

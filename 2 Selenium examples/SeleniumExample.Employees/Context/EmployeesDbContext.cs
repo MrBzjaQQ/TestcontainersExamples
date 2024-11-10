@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SeleniumExample.Users.Entities;
+using SeleniumExample.Employees.Entities;
 
-namespace SeleniumExample.Users.Context;
+namespace SeleniumExample.Employees.Context;
 
 public class EmployeesDbContext(DbContextOptions<EmployeesDbContext> options) : DbContext(options), IEmployeesDbContext
 {

@@ -1,5 +1,5 @@
 using RabbitMQExamples.API;
-using SeleniumExample.Users.Settings;
+using SeleniumExample.Employees.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 

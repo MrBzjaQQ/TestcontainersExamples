@@ -1,4 +1,4 @@
-﻿namespace SeleniumExample.Users.Settings;
+﻿namespace SeleniumExample.Employees.Settings;
 
 public sealed record AppSettings
 {

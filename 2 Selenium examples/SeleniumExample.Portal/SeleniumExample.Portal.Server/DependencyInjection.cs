@@ -2,7 +2,7 @@
 using RabbitMQExamples.API.Services;
 using Refit;
 using SeleniumExample.Portal.Server.Connectors;
-using SeleniumExample.Users.Settings;
+using SeleniumExample.Employees.Settings;
 
 namespace RabbitMQExamples.API;
 

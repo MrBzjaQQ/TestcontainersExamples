@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SeleniumExample.Users.Entities;
+using SeleniumExample.Employees.Entities;
 
-namespace SeleniumExample.Users.EntityConfigurations;
+namespace SeleniumExample.Employees.EntityConfigurations;
 
 public class EmployeeConfiguration: IEntityTypeConfiguration<Employee>
 {

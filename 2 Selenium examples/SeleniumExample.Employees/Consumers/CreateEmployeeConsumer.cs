@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 using SeleniumExample.Contract;
-using SeleniumExample.Users.Context;
-using SeleniumExample.Users.Dtos;
-using SeleniumExample.Users.Entities;
+using SeleniumExample.Employees.Context;
+using SeleniumExample.Employees.Dtos;
+using SeleniumExample.Employees.Entities;
 
-namespace SeleniumExample.Users.Consumers;
+namespace SeleniumExample.Employees.Consumers;
 
 public class CreateEmployeeConsumer: IConsumer<ICreateEmployeeRequest>
 {

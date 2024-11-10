@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using SeleniumExample.Users.Context;
+using SeleniumExample.Employees.Context;
 
 #nullable disable
 
-namespace SeleniumExample.Users.Migrations
+namespace SeleniumExample.Employees.Migrations
 {
     [DbContext(typeof(EmployeesDbContext))]
     [Migration("20241014123310_InitialMigration")]

@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SeleniumExample.Users;
-using SeleniumExample.Users.Context;
-using SeleniumExample.Users.Dtos;
-using SeleniumExample.Users.Settings;
+using SeleniumExample.Employees;
+using SeleniumExample.Employees.Context;
+using SeleniumExample.Employees.Dtos;
+using SeleniumExample.Employees.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 

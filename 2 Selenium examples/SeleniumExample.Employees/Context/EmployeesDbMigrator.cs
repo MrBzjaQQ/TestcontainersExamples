@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SeleniumExample.Users.Context;
+namespace SeleniumExample.Employees.Context;
 
 public class EmployeesDbMigrator
 {

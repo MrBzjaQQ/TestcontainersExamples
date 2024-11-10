@@ -9,9 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumExample.Employees",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumExample.Contract", "SeleniumExample.Contract\SeleniumExample.Contract.csproj", "{7A03D680-3891-4E5E-A129-23B2F51491C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumExample.Portal.Server", "SeleniumExample.Portal\SeleniumExample.Portal.Server\SeleniumExample.Portal.Server.csproj", "{072E6478-5D3C-440A-A84B-4C12096999A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumExample.Portal.Server", "SeleniumExample.Portal\SeleniumExample.Portal.Server\SeleniumExample.Portal.Server.csproj", "{072E6478-5D3C-440A-A84B-4C12096999A4}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "seleniumexample.portal.client", "SeleniumExample.Portal\seleniumexample.portal.client\seleniumexample.portal.client.esproj", "{A221F450-9D61-4B4F-9649-201750C20ABA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20908DC2-F836-4E64-9D85-D05BB30416FD}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile.employees = Dockerfile.employees
+		Dockerfile.portal = Dockerfile.portal
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

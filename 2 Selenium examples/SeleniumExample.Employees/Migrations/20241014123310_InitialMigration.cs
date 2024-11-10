@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SeleniumExample.Users.Migrations
+namespace SeleniumExample.Employees.Migrations
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

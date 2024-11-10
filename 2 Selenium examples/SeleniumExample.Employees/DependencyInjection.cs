@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using SeleniumExample.Users.Consumers;
-using SeleniumExample.Users.Context;
-using SeleniumExample.Users.Settings;
+using SeleniumExample.Employees.Consumers;
+using SeleniumExample.Employees.Context;
+using SeleniumExample.Employees.Settings;
 
-namespace SeleniumExample.Users;
+namespace SeleniumExample.Employees;
 
 public static class DependencyInjection
 {
