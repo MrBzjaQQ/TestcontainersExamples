@@ -11,16 +11,23 @@ public class ApiTests: TestsBase
         // Arrange
         var request = new CreateEmployeeRequest("+12345678900", "userName1", "test@example.com", "Инженер-программист");;
 
-        // Act
-        var createResult = await PortalService.CreateEmployeeAsync(request);
-        var getResult = await PortalService.GetEmployeeAsync(createResult.Id);
+        try
+        {
+            // Act
+            var createResult = await PortalService.CreateEmployeeAsync(request);
+            var getResult = await PortalService.GetEmployeeAsync(createResult.Id);
 
-        // Assert
-        getResult.Should().Be(new GetEmployeeDto(
-            createResult.Id,
-            request.Phone,
-            request.UserName,
-            request.Email,
-            request.Position));
+            // Assert
+            getResult.Should().Be(new GetEmployeeDto(
+                createResult.Id,
+                request.Phone,
+                request.UserName,
+                request.Email,
+                request.Position));
+        }
+        catch(Exception ex)
+        {
+            Assert.Fail(ex.Message);
+        }
     }
 }

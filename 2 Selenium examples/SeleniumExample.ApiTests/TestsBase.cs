@@ -2,6 +2,7 @@
 using DotNet.Testcontainers.Containers;
 using DotNet.Testcontainers.Images;
 using Refit;
+using System.Text.RegularExpressions;
 using Testcontainers.PostgreSql;
 using Testcontainers.RabbitMq;
 
@@ -10,13 +11,14 @@ public abstract class TestsBase
 {
     private const string PortalDockerfileDir = "";
     private const string EmployeesDockerfileDir = "";
-    private const string PortalImageName = "selenium-example-portal-image";
-    private const string EmployeesImageName = "selenium-example-employees-image";
+    private const string PortalImageName = "selenium-example-portal-image:1.0";
+    private const string EmployeesImageName = "selenium-example-employees-image:1.0";
     private const string PortalContainerName = "selenium-example-portal-container";
     private const string EmployeesContainerName = "selenium-example-employees-container";
     private const string PortalDockerfileName = "Dockerfile.portal";
     private const string EmployeesDockerfileName = "Dockerfile.employees";
-    
+    private const string ContainerStartedLog = "PostgreSQL init process complete; ready for start up.";
+
     private RabbitMqContainer _rabbitMqContainer;
     private PostgreSqlContainer _postgreSqlContainer;
     private IFutureDockerImage _portalImage;
@@ -68,9 +70,7 @@ public abstract class TestsBase
             .WithPassword("guest")
             .WithPortBinding(15672, 15672)
             .WithPortBinding(5672, 5672)
-            .WithWaitStrategy(Wait.ForUnixContainer())
-            //.WithCleanUp(false)
-            .WithNetworkAliases("test-rabbitmq")
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5672))
             .Build();
     }
 
@@ -78,6 +78,7 @@ public abstract class TestsBase
     {
         return new PostgreSqlBuilder()
             .WithPortBinding(5432, 5432)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilMessageIsLogged(ContainerStartedLog))
             .Build();
     }
     
@@ -103,10 +104,9 @@ public abstract class TestsBase
             .WithEnvironment("MassTransit__Password", "guest")
             .WithEnvironment("EmployeesUrl", "http://host.docker.internal:5189")
             .WithPortBinding(5045, 8080) // TODO: https
-            //.WithCleanUp(false)
             .DependsOn(_rabbitMqContainer)
-            .DependsOn(_postgreSqlContainer)
             .DependsOn(_employeesContainer)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilMessageIsLogged(new Regex(@"Bus started: rabbitmq://\d{1,3}(.\d{1,3}){3}/")))
             .Build();
     }
 
@@ -120,7 +120,6 @@ public abstract class TestsBase
             .WithEnvironment("MassTransit__Password", "guest")
             .WithEnvironment("Database__ConnectionString", _postgreSqlContainer.GetConnectionString().Replace("127.0.0.1", "host.docker.internal"))
             .WithPortBinding(5189, 8080) // TODO: https
-            //.WithCleanUp(false)
             .DependsOn(_rabbitMqContainer)
             .DependsOn(_postgreSqlContainer)
             .Build();
@@ -128,6 +127,6 @@ public abstract class TestsBase
 
     private IPortalService BuildPortalService()
     {
-        return RestService.For<IPortalService>("http://localhost:5045");
+        return RestService.For<IPortalService>("http://127.0.0.1:5045");
     }
 }
