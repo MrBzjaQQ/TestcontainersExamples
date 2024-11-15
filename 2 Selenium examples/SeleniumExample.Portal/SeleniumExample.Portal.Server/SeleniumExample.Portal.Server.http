@@ -1,0 +1,11 @@
+@SeleniumExample.Portal.Server_HostAddress = http://localhost:5045
+
+GET {{SeleniumExample.Portal.Server_HostAddress}}/employees/
+Accept: application/json
+
+###
+
+POST {{SeleniumExample.Portal.Server_HostAddress}}/employees/
+Accept: application/json
+
+###

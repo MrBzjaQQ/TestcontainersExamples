@@ -1,0 +1,6 @@
+@SeleniumExample.Users_HostAddress = http://localhost:5189
+
+GET {{SeleniumExample.Users_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

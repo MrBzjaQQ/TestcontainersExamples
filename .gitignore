@@ -396,3 +396,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/2 Selenium examples/dev-certificates/apitests_CA.crt
+/2 Selenium examples/dev-certificates/apitests_CA.key
