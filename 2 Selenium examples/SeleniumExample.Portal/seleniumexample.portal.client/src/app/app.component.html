@@ -1,24 +1,20 @@
 ﻿<h1 id="tableLabel">Weather forecast</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<form [formGroup]="formGroup" (ngSubmit)="createEmployee()">
+  <label for="phone">Phone</label>
+  <input id="phone" formControlName="phone" >
+  <label for="userName">User Name</label>
+  <input id="userName" formControlName="userName">
+  <label for="email">Email:</label>
+  <input id="email" formControlName="email">
+  <label for="position">Position:</label>
+  <input id="position" formControlName="position">
+  <button type="submit">Submit</button>
+</form>
 
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="forecasts">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
-        </tr>
-    </tbody>
-</table>
+<pre *ngIf="getEmployeeDto; else loading">
+  {{ JSON.stringify(getEmployeeDto) }}
+</pre>
+<ng-template #loading>
+  <p *ngIf="isSubmitted">Loading...</p>
+</ng-template>

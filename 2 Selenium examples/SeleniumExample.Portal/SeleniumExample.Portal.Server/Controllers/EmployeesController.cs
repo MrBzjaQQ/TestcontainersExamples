@@ -6,7 +6,7 @@ using SeleniumExample.Portal.Server.Dtos;
 namespace SeleniumExample.Portal.Server.Controllers;
 
 [ApiController]
-[Route("employees")]
+[Route("api/employees")]
 public class EmployeesController: ControllerBase
 {
     private readonly IEmployeesService _service;

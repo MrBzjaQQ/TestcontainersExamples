@@ -5,9 +5,9 @@ namespace RabbitMQExamples;
 
 public interface IPortalService
 {
-    [Post("/employees")]
+    [Post("/api/employees")]
     public Task<CreateEmployeeResponse> CreateEmployeeAsync(CreateEmployeeRequest request, CancellationToken cancellationToken = default);
 
-    [Get("/employees/{id}")]
+    [Get("/api/employees/{id}")]
     public Task<GetEmployeeDto> GetEmployeeAsync(Guid id, CancellationToken cancellationToken = default);
 }
