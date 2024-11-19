@@ -55,17 +55,11 @@ public abstract class TestsBase
         await _employeesContainer.StartAsync();
         await _portalContainer.StartAsync();
 
-        try
-        {
-            _webDriverContainer = BuildWebDriverContainer();
-            await _webDriverContainer.StartAsync();
-            _driver = new RemoteWebDriver(new Uri(_webDriverContainer.GetConnectionString()), new ChromeOptions());
-            PageObject = new TestPageObject(_driver);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-        }
+        _webDriverContainer = BuildWebDriverContainer();
+        await _webDriverContainer.StartAsync();
+        _driver = new RemoteWebDriver(new Uri(_webDriverContainer.GetConnectionString()), new ChromeOptions());
+        PageObject = new TestPageObject(_driver);
+        
     }
 
     [TearDown]
