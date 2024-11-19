@@ -1,14 +1,13 @@
 ﻿using FluentAssertions;
 using RabbitMQExamples;
 using SeleniumExample.Portal.Server.Dtos;
-using System.Text.Json;
 
 namespace SeleniumExample.TestsWithWebDriver;
 
 public class Tests : TestsBase
 {
     [Test]
-    public void ShouldCheckCreateResult()
+    public void ShouldCheckCreationResult()
     {
         // Arrange
         var createEmployeeRequest = new CreateEmployeeRequest("+71111111111", "testUser", "test@example.com", "Инженер-программист");
