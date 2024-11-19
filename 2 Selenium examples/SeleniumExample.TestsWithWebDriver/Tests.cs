@@ -22,13 +22,4 @@ public class Tests : TestsBase
         var response = PageObject.GetCreateResult();
         response.Should().NotBeNull();
     }
-
-    private record GetEmployeeResponse
-    {
-        public string Id { get; init; } = string.Empty;
-        public string Phone { get; init; } = string.Empty;
-        public string UserName { get; init; } = string.Empty;
-        public string Email { get; init; } = string.Empty;
-        public string Position { get; init; } = string.Empty;
-    }
 }
