@@ -24,7 +24,7 @@ public class TargetDbFixture : IAsyncLifetime
 
     private static PostgreSqlContainer CreateDbContainer()
         => new PostgreSqlBuilder()
-            .WithDatabase($"alarm-su-recommendations-tests-{Guid.NewGuid()}")
+            .WithDatabase($"tests-{Guid.NewGuid()}")
             .WithPortBinding(PostgreSqlBuilder.PostgreSqlPort, assignRandomHostPort: true)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilMessageIsLogged(ContainerStartedLog))
             .Build();
