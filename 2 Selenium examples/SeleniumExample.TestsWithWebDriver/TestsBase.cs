@@ -72,6 +72,8 @@ public abstract class TestsBase
         await _rabbitMqContainer.DisposeAsync();
         await _portalContainer.DisposeAsync();
         await _employeesContainer.DisposeAsync();
+        //await _portalImage.DeleteAsync();
+        //await _employeesImage.DeleteAsync();
         await _portalImage.DisposeAsync();
         await _employeesImage.DisposeAsync();
         await _postgreSqlContainer.DisposeAsync();
@@ -81,8 +83,6 @@ public abstract class TestsBase
     private RabbitMqContainer BuildRabbitMQContainer()
     {
         return new RabbitMqBuilder()
-            .WithUsername("guest")
-            .WithPassword("guest")
             .WithPortBinding(15672, 15672)
             .WithPortBinding(5672, 5672)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5672))
@@ -115,8 +115,8 @@ public abstract class TestsBase
             .WithImage(_portalImage)
             .WithName(PortalContainerName)
             .WithEnvironment("MassTransit__Host", _rabbitMqContainer.IpAddress)
-            .WithEnvironment("MassTransit__UserName", "guest")
-            .WithEnvironment("MassTransit__Password", "guest")
+            .WithEnvironment("MassTransit__UserName", RabbitMqBuilder.DefaultUsername)
+            .WithEnvironment("MassTransit__Password", RabbitMqBuilder.DefaultPassword)
             .WithEnvironment("EmployeesUrl", "http://host.docker.internal:5189")
             .WithPortBinding(5045, 8080) // TODO: https
             .WithPortBinding(4200, 4200)
@@ -132,8 +132,8 @@ public abstract class TestsBase
             .WithImage(_employeesImage)
             .WithName(EmployeesContainerName)
             .WithEnvironment("MassTransit__Host", _rabbitMqContainer.IpAddress)
-            .WithEnvironment("MassTransit__UserName", "guest")
-            .WithEnvironment("MassTransit__Password", "guest")
+            .WithEnvironment("MassTransit__UserName", RabbitMqBuilder.DefaultUsername)
+            .WithEnvironment("MassTransit__Password", RabbitMqBuilder.DefaultPassword)
             .WithEnvironment("Database__ConnectionString", _postgreSqlContainer.GetConnectionString().Replace("127.0.0.1", "host.docker.internal"))
             .WithPortBinding(5189, 8080) // TODO: https
             .DependsOn(_rabbitMqContainer)
