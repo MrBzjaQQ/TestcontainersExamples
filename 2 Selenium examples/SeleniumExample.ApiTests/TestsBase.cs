@@ -52,6 +52,7 @@ public abstract class TestsBase
         await _employeesContainer.StartAsync();
         await _portalContainer.StartAsync();
 
+        // Создаем сервис, который будет вызывать API-методы
         PortalService = BuildPortalService();
     }
 
