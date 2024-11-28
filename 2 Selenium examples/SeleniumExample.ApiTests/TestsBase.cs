@@ -32,18 +32,21 @@ public abstract class TestsBase
     [SetUp]
     public async Task Setup()
     {
-        _rabbitMqContainer = BuildRabbitMQContainer();
-        _postgreSqlContainer = BuildPostgreSqlContainer();
+        // Собираем образы наших микросервисов
         var createPortalImageTask = BuildAndCreateImage(PortalDockerfileDir, PortalDockerfileName, PortalImageName);
         var createEmployeesImageTask = BuildAndCreateImage(EmployeesDockerfileDir, EmployeesDockerfileName, EmployeesImageName);
         await Task.WhenAll(createPortalImageTask, createEmployeesImageTask);
-
         _portalImage = createPortalImageTask.Result;
         _employeesImage = createEmployeesImageTask.Result;
+
+        // Запускаем контейнеры RabbitMQ и Postgres
+        _rabbitMqContainer = BuildRabbitMQContainer();
+        _postgreSqlContainer = BuildPostgreSqlContainer();
         var startRabbitTask = _rabbitMqContainer.StartAsync();
         var startPostgresTask = _postgreSqlContainer.StartAsync();
         await Task.WhenAll(startRabbitTask, startPostgresTask);
 
+        // Запускаем контейнеры наших микросервисов
         _employeesContainer = BuildEmployeesContainer();
         _portalContainer = BuildPortalContainer();
         await _employeesContainer.StartAsync();
@@ -103,7 +106,7 @@ public abstract class TestsBase
             .WithEnvironment("MassTransit__UserName", RabbitMqBuilder.DefaultUsername)
             .WithEnvironment("MassTransit__Password", RabbitMqBuilder.DefaultPassword)
             .WithEnvironment("EmployeesUrl", "http://host.docker.internal:5189")
-            .WithPortBinding(5045, 8080) // TODO: https
+            .WithPortBinding(5045, 8080)
             .DependsOn(_rabbitMqContainer)
             .DependsOn(_employeesContainer)
             .WithWaitStrategy(Wait.ForUnixContainer().UntilMessageIsLogged(new Regex(@"Bus started: rabbitmq://\d{1,3}(.\d{1,3}){3}/")))
@@ -119,7 +122,7 @@ public abstract class TestsBase
             .WithEnvironment("MassTransit__UserName", RabbitMqBuilder.DefaultUsername)
             .WithEnvironment("MassTransit__Password", RabbitMqBuilder.DefaultPassword)
             .WithEnvironment("Database__ConnectionString", _postgreSqlContainer.GetConnectionString().Replace("127.0.0.1", "host.docker.internal"))
-            .WithPortBinding(5189, 8080) // TODO: https
+            .WithPortBinding(5189, 8080)
             .DependsOn(_rabbitMqContainer)
             .DependsOn(_postgreSqlContainer)
             .Build();
